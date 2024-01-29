@@ -1,0 +1,40 @@
+﻿@page "/addproduct"
+
+<h3>Add Product</h3>
+@using MudBlazor
+@using ViewModels
+@inject MyBlazorApp.Service.IBlazorService service
+@inject NavigationManager navigate
+
+<EditForm Model="@newProduct" OnValidSubmit="AddNewProduct">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Product Name" HelperText="Product Name"
+                                  @bind-Value="newProduct.Name" For="@(() => newProduct.Name)" InputType="InputType.Text" />
+
+                    <MudTextField HideSpinButtons="true" @bind-Value="newProduct.Price" Label="Price" HelperText="Product Price" For="@(() => newProduct.Price)" Variant="Variant.Text" />
+                    <MudTextField Label="Description" HelperText="Description"
+                                  @bind-Value="newProduct.Description" For="@(() => newProduct.Description)" InputType="InputType.Text" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add Product</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    private ProductVM newProduct = new ProductVM();
+
+    private async Task AddNewProduct()
+    {
+        int productId = await service.Add(newProduct);
+
+        navigate.NavigateTo("/products");
+    }
+}
