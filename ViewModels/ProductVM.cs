@@ -20,5 +20,7 @@ namespace ViewModels
 
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
+
+        public List<OrderVM> Orders { get; set; }
     }
 }

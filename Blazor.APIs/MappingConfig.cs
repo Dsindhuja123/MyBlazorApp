@@ -13,6 +13,8 @@ namespace Blazor.APIs
 
                 config.CreateMap<ProductVM, Product>().ReverseMap();
                 //config.CreateMap<List<ProductVM>, List<Product>>().ReverseMap();
+
+                config.CreateMap<OrderVM, Order>().ReverseMap();
             });
 
             return mappingConfig;

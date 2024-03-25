@@ -29,12 +29,16 @@ builder.Services.AddCors(options =>
 
 
 });
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRepository,Repository>();
 builder.Services.AddScoped<IBusiness, Business>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderBusiness, OrderBusiness>();
 
 var app = builder.Build();
 

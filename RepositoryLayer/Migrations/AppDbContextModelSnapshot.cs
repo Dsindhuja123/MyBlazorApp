@@ -21,6 +21,58 @@ namespace RepositoryLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("RepositoryLayer.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("OrderBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderBy = "Sindhu",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            OrderBy = "John",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            OrderBy = "Mark",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            OrderBy = "Carlin",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            OrderBy = "Jack",
+                            ProductId = 2
+                        });
+                });
+
             modelBuilder.Entity("RepositoryLayer.Models.Product", b =>
                 {
                     b.Property<int>("Id")

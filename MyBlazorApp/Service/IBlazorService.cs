@@ -7,5 +7,8 @@ namespace MyBlazorApp.Service
     {
         Task<List<ProductVM>> GetAll();
         Task<int> Add(ProductVM product);
+        Task Delete(int productId);
+        Task<ProductVM> GetProductById(int productId);
+        Task Update(ProductVM updatedProduct);
     }
 }

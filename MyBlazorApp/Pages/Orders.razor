@@ -1,0 +1,45 @@
+﻿@page "/orders"
+@using RepositoryLayer.Models
+@using ViewModels
+@inject MyBlazorApp.Service.IOrderBlazorService service
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Order List</PageTitle>
+<h1>Orders</h1>
+
+@if (orders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Order By</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.ProductId</td>
+                    <td>@order.OrderBy</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<OrderVM> orders = new List<OrderVM>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = (await service.GetAll()).ToList();
+    }
+
+}

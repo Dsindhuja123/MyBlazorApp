@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RepositoryLayer;
 using RepositoryLayer.Models;
 using ViewModels;
@@ -37,7 +38,57 @@ namespace Blazor.APIs.Controllers
 
             return newProductId;
         }
+        [HttpPut]
+        [Route("EditProduct/{productId}")]
+        public async Task<ActionResult> UpdateProduct(int productId, [FromBody] ProductVM updatedProduct)
+        {
+            if (productId <= 0)
+            {
+                return BadRequest("Invalid productId");
+            }
+            updatedProduct.Id = productId; 
+            var success = await _business.UpdateProductAsync(updatedProduct);
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
+        [HttpDelete]
+        [Route("DeleteProduct/{productId}")]
+        public async Task<ActionResult> DeleteProduct(int productId)
+        {
+            var success = await _business.DeleteProduct(productId);
+            if (success)
+                return NoContent(); 
+            else
+                return NotFound(); 
+        }
+
+        [HttpGet]
+        [Route("GetProduct/{id}")]
+        public async Task<ActionResult> GetProduct(int id)
+        {
+            try
+            {
+                var product = await _business.GetProductById(id);
+                if (product == null)
+                {
+                    return NotFound(); 
+                }
+                
+                return Ok(product); 
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
     }
 }

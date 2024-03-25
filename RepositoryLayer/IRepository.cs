@@ -12,5 +12,8 @@ namespace RepositoryLayer
         IQueryable<Product> GetProducts();
 
         Task<Product> AddProduct(Product product);
+        Task<bool> UpdateProductAsync(Product product);
+        Task<bool> DeleteProduct(int productId);
+        Task<Product> GetProductById(int productId);
     }
 }
